@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueryDB_Shop.Data;
-using QueryDB_Shop.Model;
 using QueryDB_Shop.Model.Rest;
 using QueryDB_Shop.Service;
 using System;
@@ -73,6 +72,8 @@ namespace QueryDB_Shop
             {
                 Console.WriteLine("...выводим");
 
+             
+
                 var dishess = db.Dishes.Include(c => c.DishIngredients).ToList();
                 // выводим все курсы
                 foreach (var c in dishess)
@@ -80,8 +81,12 @@ namespace QueryDB_Shop
                     Console.WriteLine($"Блюда: {c.Name}");
                     // выводим всех студентов для данного кура
                     foreach (var s in c.DishIngredients)
-                        Console.WriteLine($"Name: {s.Ingredient.Name}  Date: {s.DishIngredientDate.ToShortDateString()}  Mark: {s.quantityIngredient}");
+                    {
+                         Console.WriteLine($"Name: { s.Ingredient.Name}  Date: {s.DishIngredientDate.ToShortDateString()}  Mark: {s.quantityIngredient}");
                     Console.WriteLine("-------------------");
+                    }
+
+                       
                 }
                 Console.WriteLine("...Закончили вывод");
             }

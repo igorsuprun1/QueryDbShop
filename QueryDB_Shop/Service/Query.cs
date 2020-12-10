@@ -103,7 +103,19 @@ namespace QueryDB_Shop.Service
                     }
 
                 }
-                    
+                     Console.WriteLine("...выводим");
+
+                var dishess = db.Dishes.Include(c => c.DishIngredients).ToList();
+                // выводим все курсы
+                foreach (var c in dishess)
+                {
+                    Console.WriteLine($"Блюда: {c.Name}");
+                    // выводим всех студентов для данного кура
+                    foreach (var s in c.DishIngredients)
+                        Console.WriteLine($"Name: {s.Ingredient.Name}  Date: {s.DishIngredientDate.ToShortDateString()}  Mark: {s.quantityIngredient}");
+                    Console.WriteLine("-------------------");
+                }
+                Console.WriteLine("...Закончили вывод");
                
 
                

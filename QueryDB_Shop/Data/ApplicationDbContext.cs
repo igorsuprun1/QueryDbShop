@@ -90,7 +90,7 @@ namespace QueryDB_Shop.Data
                 .WithMany(b => b.Dishes)
                 .HasForeignKey(c => c.CategoryId);
 
-            //Связь Многие  ко многим FluentAPI У Блюда  есть много Ингридиентов
+            //Связь Многие  ко многим EntityFramework Core 3.0 FluentAPI У Блюда  есть много Ингридиентов
             //https://metanit.com/sharp/entityframeworkcore/3.6.php
 
             base.OnModelCreating(builder);
@@ -105,7 +105,7 @@ namespace QueryDB_Shop.Data
                 .WithMany(x => x.DishIngredients)
                 .HasForeignKey(x => x.IngredientId);
 
-            //Связь Многие  ко многим FluentAPI У Блюда есть много Ингридиентов WORK!!!!!!!
+            //Связь Многие  ко многим EntityFramework Core 5.0  FluentAPI У Блюда есть много Ингридиентов WORK!!!!!!! 
             //https://metanit.com/sharp/entityframeworkcore/3.6.php
 
             //base.OnModelCreating(builder);
@@ -129,7 +129,7 @@ namespace QueryDB_Shop.Data
             //    }
             //);
 
-      
+
 
 
         }
