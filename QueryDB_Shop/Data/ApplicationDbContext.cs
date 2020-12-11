@@ -42,13 +42,17 @@ namespace QueryDB_Shop.Data
 
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+
         public DbSet<CountryOrigin> CountryOrigins { get; set; }
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Order> Orders { get; set; }
      
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<DishOrder> DishOrders { get; set; }
 
+        public DbSet<Dish_ef_5_0> Dishes_ef_5_0 { get; set; }
+        public DbSet<Ingredient_ef_5_0> Ingredients_ef_5_0 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -128,6 +132,30 @@ namespace QueryDB_Shop.Data
             //        j.ToTable("DishIngredient");
             //    }
             //);
+
+            //Связь Многие  ко многим EntityFramework Core 5.0  FluentAPI У Блюда есть много Ингридиентов WORK!!!!!!! 
+            //https://metanit.com/sharp/entityframeworkcore/3.6.php
+
+            base.OnModelCreating(builder);
+            builder.Entity<Dish_ef_5_0>()
+                .HasMany(c => c.Ingredients_ef_5_0)
+                .WithMany(s => s.Dishes_ef_5_0)
+                .UsingEntity<DishIngredient_ef_5_0>(
+                   j => j
+                    .HasOne(pt => pt.Ingredient_ef_5_0)
+                    .WithMany(t => t.DishIngredients_ef_5_0)
+                    .HasForeignKey(pt => pt.IngredientId_ef_5_0),
+                j => j
+                    .HasOne(pt => pt.Dish_ef_5_0)
+                    .WithMany(p => p.DishIngredients_ef_5_0)
+                    .HasForeignKey(pt => pt.DishId_ef_5_0),
+                j =>
+                {
+                    j.Property(pt => pt.quantityIngredient_ef_5_0).HasDefaultValue("3");
+                    j.HasKey(t => new { t.DishId_ef_5_0, t.IngredientId_ef_5_0 });
+                    j.ToTable("DishIngredient_ef_5_0");
+                }
+            );
 
 
 

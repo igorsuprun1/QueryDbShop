@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace QueryDB_Shop.Model.Rest
 {
 
-    // Модель для EntityFramework Core 3.0 FluentAPI У Блюда  есть много Ингридиентов
-    public class Dish
+    // Модель для EntityFramework Core 5.0 FluentAPI У Блюда  есть много Ингридиентов
+    public class Dish_ef_5_0
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -29,12 +30,13 @@ namespace QueryDB_Shop.Model.Rest
         public CountryOrigin CountryOrigin { get; set; }
 
         // Многие ко многим ссылка на промежуточную таблицу
-        public ICollection<DishIngredient> DishIngredients { get; set; } = new List<DishIngredient>();
+        public List<Ingredient_ef_5_0> Ingredients_ef_5_0 { get; set; } = new List<Ingredient_ef_5_0>();
+        public List<DishIngredient_ef_5_0> DishIngredients_ef_5_0 { get; set; } = new List<DishIngredient_ef_5_0>();
 
         public ICollection<DishOrder> DishOrders { get; set; }
 
-       
+
+
 
     }
-
 }

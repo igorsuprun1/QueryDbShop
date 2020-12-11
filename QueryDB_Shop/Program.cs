@@ -48,7 +48,21 @@ namespace QueryDB_Shop
             //listIngr.Add(ingredient3);
             //listIngr.Add(ingredient4);
 
-            //Query query = new Query();
+            Query query = new Query();
+
+           // query.AddUser();
+            query.GetUser();
+
+
+            //query.addAllDish();
+            Console.WriteLine("...выводим  porgram.cs");
+            query.GetAllDishAll();
+
+            Console.WriteLine("...выводим  porgram.cs");
+            query.GetAllDish();
+
+
+
             //query.AddIngredient(listIngr);
 
             //listIngr.Clear();
@@ -68,28 +82,28 @@ namespace QueryDB_Shop
             //query.addDish(listIngr, 45);
 
 
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                Console.WriteLine("...выводим");
+            //using (ApplicationDbContext db = new ApplicationDbContext())
+            //{
+            //    Console.WriteLine("...выводим");
 
-             
 
-                var dishess = db.Dishes.Include(c => c.DishIngredients).ToList();
-                // выводим все курсы
-                foreach (var c in dishess)
-                {
-                    Console.WriteLine($"Блюда: {c.Name}");
-                    // выводим всех студентов для данного кура
-                    foreach (var s in c.DishIngredients)
-                    {
-                         Console.WriteLine($"Name: { s.Ingredient.Name}  Date: {s.DishIngredientDate.ToShortDateString()}  Mark: {s.quantityIngredient}");
-                    Console.WriteLine("-------------------");
-                    }
 
-                       
-                }
-                Console.WriteLine("...Закончили вывод");
-            }
+            //    var dishess = db.Dishes.Include(c => c.DishIngredients).ToList();
+            //    // выводим все курсы
+            //    foreach (var c in dishess)
+            //    {
+            //        Console.WriteLine($"Блюда: {c.Name}");
+            //        // выводим всех студентов для данного кура
+            //        foreach (var s in c.DishIngredients)
+            //        {
+            //             Console.WriteLine($"Name: { s.Ingredient.Name}  Date: {s.DishIngredientDate.ToShortDateString()}  Mark: {s.quantityIngredient}");
+            //        Console.WriteLine("-------------------");
+            //        }
+
+
+            //    }
+            Console.WriteLine("...Закончили вывод");
+            //}
             Console.Read();
         }
     }
