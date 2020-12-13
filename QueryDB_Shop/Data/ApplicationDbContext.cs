@@ -18,7 +18,7 @@ namespace QueryDB_Shop.Data
             // пересоздадим базу данных
            // Database.EnsureDeleted();
             // создать базу данных
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         //Конструктор класа
@@ -32,7 +32,7 @@ namespace QueryDB_Shop.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ShopDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-BlazorRestModule.Server-0B554AFB-B141-4716-BA15-E13EF128FD8C;Trusted_Connection=True;");
             }
             else
             {
@@ -49,7 +49,7 @@ namespace QueryDB_Shop.Data
         public DbSet<Order> Orders { get; set; }
      
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<DishOrder> DishOrders { get; set; }
+        //public DbSet<DishOrder> DishOrders { get; set; }
 
         public DbSet<Dish_ef_5_0> Dishes_ef_5_0 { get; set; }
         public DbSet<Ingredient_ef_5_0> Ingredients_ef_5_0 { get; set; }

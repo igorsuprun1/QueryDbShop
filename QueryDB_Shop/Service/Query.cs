@@ -205,6 +205,121 @@ namespace QueryDB_Shop.Service
         }
         #endregion
 
+         // Заказ
+        #region 
+        public void Order()
+        {
+            
+            //Подключения к базе
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+              Console.WriteLine(" ADD Order: ");
+                //Запрос к базе
+                var usr = db.ApplicationUsers.FirstOrDefault(s => s.UserName == "igorsuprun1@gmail.com");
+               
+               // Dictionary<Dish, int> listDishes = new Dictionary<Dish, int>();
+                Dictionary<int, Dish> listDishes = new Dictionary<int, Dish>();
+               // var dish1 = db.Dishes.Include(v => v.Category).Include(q => q.CountryOrigin).Include(i =>i.DishIngredients).FirstOrDefault(s => s.Name == "Чай");
+                var dish2 = db.Dishes.FirstOrDefault(s => s.Name == "Лимонад");
+                var dish1 = db.Dishes.FirstOrDefault(s => s.Name == "Чай");
+                var dish3 = db.Dishes.FirstOrDefault(s => s.Name == "Салат");
+                listDishes.Add(2,dish2);
+                listDishes.Add(1,dish1);
+                listDishes.Add(3, dish3);
+
+                Order order = new Order { Status = " В процесе" };
+                //order.Add(listDishes);
+                
+                db.Orders.AddRange(order);
+                order.ApplicationUserOrders.Add(new ApplicationUserOrder { ApplicationUser = usr, Order = order });
+                db.SaveChanges();
+                //Ищем Инградиенты для этого блюда ( с которого оно состоит и в каких пропорциях)
+                foreach (var d in listDishes)
+                {
+                    // Условие хватает ли остатков этого Блюдa на *Складе* если нет то не создаем Order
+
+                    if (d.Value.Remain > d.Key)
+                    {
+                        //Ищем этот инградиент в бд *на всякий случай для перестраховки , но думаю можно и без этого* 
+                        var y = db.Dishes.Find(d.Value.Id);
+                        //Если он есть то идем дальше
+                        if (y != null)
+                        {
+                            Console.WriteLine("!!!  !!!");
+                            //добавляем Заказу Блюда в промежуточную таблицу с указание количества бляд было потрацено чтобы обновить остатки*Склада*
+                            y.DishOrders.Add(new DishOrder { Order=order, Dish=y, Quality = d.Key,DateTimeDishOrder = DateTime.Now});
+                            Console.WriteLine("!!!  !!!");
+                            // Console.WriteLine(" Блюдо  создано ... отнимаем  инградиенты : " + ingr.Name);
+                            //Отнимаем от остатков в *Складе* потраченые количество инградиента
+                            long num = d.Value.Remain - d.Key ;
+                            //Обновляем остатки в *Складе* в бд
+                            y.Remain = num;
+                            //Записываем это все в бд
+                            db.SaveChanges();
+                        }
+
+                        db.SaveChanges();
+                        Console.WriteLine("!!! addDish  !!!");
+
+                    }
+                    else
+                    {
+                       // Console.WriteLine(" Блюдо не возможно создать ... не досточно инградиента : " + ingr.Name);
+                    }
+
+                }
+
+
+
+            }
+            
+          
+        }
+        #endregion
+
+
+        // Заказ
+        #region 
+        public void GetUserOrder()
+        {
+            var orders = new List<Order>();
+            //Подключения к базе
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Console.WriteLine(" GET Order: ");
+                //Запрос к базе
+                var users = db.ApplicationUsers.Include(o => o.ApplicationUserOrders).ThenInclude(o=> o.Order).ThenInclude(o=>o.DishOrders).ThenInclude(d => d.Dish).ToList();
+                foreach (var user in users)
+                {
+
+                    foreach (var order in user.ApplicationUserOrders.ToList())
+                    {
+                        
+                        foreach (var dish in order.Order.DishOrders)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(user.UserName + " -> " + order.OrderId.ToString() + " -> " + order.Order.Status +" -> "+dish.Dish.Name);
+
+                        }
+
+
+                    }
+
+                }
+
+                //var usr = db.ApplicationUsers.Include(o => o.ApplicationUserOrders).ThenInclude(u => u.).FirstOrDefault(s => s.UserName == "Tom");
+
+                
+
+
+
+
+            }
+
+
+        }
+        #endregion
+
 
         //Метод загрузки данных с отношениям связей Многие-ко-Многим ef 3.0 **Пример**
         //https://metanit.com/sharp/entityframeworkcore/3.6.php
@@ -228,9 +343,9 @@ namespace QueryDB_Shop.Service
                 db.Ingredients.AddRange(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5);
 
 
-                Dish dish1 = new Dish { Name = "Limonad", Category = category1, CountryOrigin = countryOrigin, Calories = 330, Weight = 500, Remain = 100 };
+                Dish dish1 = new Dish { Name = "Чай", Category = category1, CountryOrigin = countryOrigin, Calories = 330, Weight = 500, Remain = 100 };
                 Dish dish2 = new Dish { Name = "Салат", Category = category2, CountryOrigin = countryOrigin, Calories = 730, Weight = 200, Remain = 14 };
-                Dish dish3 = new Dish { Name = "Газировка", Category = category2, CountryOrigin = countryOrigin, Calories = 730, Weight = 200, Remain = 14 };
+                Dish dish3 = new Dish { Name = "Лимонад", Category = category2, CountryOrigin = countryOrigin, Calories = 730, Weight = 200, Remain = 14 };
                 db.Dishes.AddRange(dish1, dish2, dish3);
 
                 ingredient1.DishIngredients.Add(new DishIngredient { Dish = dish3, Ingredient = ingredient1, quantityIngredient = 250, DishIngredientDate = DateTime.Now });

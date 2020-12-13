@@ -13,11 +13,12 @@ namespace QueryDB_Shop.Model.Rest
         public int Qty { get; set; }
         public string Status { get; set; }
 
-        public ICollection<DishOrder> DishOrders { get; set; }
+        public ICollection<DishOrder> DishOrders { get; set; } = new List<DishOrder>();
 
-        public ICollection<ApplicationUserOrder> ApplicationUserOrders { get; set; }
+        public ICollection<ApplicationUserOrder> ApplicationUserOrders { get; set; } = new List<ApplicationUserOrder>();
+       
 
-
+        // public ApplicationUser ApplicationUser { get; set; }
         //public Dish Dish { get; set; }
 
         //public Order()
@@ -25,7 +26,10 @@ namespace QueryDB_Shop.Model.Rest
         //    DishOrders = new List<DishOrder>();
         //}
 
-
+        //public void Add(List<Dish> argDishes)
+        //{
+        //    argDishes
+        //}
 
     }
 }

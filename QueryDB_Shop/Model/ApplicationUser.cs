@@ -10,9 +10,9 @@ namespace QueryDB_Shop.Model
 {
     public class ApplicationUser 
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string UserName { get; set; }
-        public ICollection<ApplicationUserOrder> ApplicationUserOrders { get; set; }
+        public ICollection<ApplicationUserOrder> ApplicationUserOrders { get; set; } = new List<ApplicationUserOrder>();
 
         // https://metanit.com/sharp/mvc5/12.3.php
         //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

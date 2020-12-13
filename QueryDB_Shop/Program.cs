@@ -50,19 +50,25 @@ namespace QueryDB_Shop
 
             Query query = new Query();
 
-           // query.AddUser();
-            query.GetUser();
+            // query.AddUser();
+            // query.GetUser();
+
+            query.Order();
 
 
-            //query.addAllDish();
-            Console.WriteLine("...выводим  porgram.cs");
-            query.GetAllDishAll();
+           // query.GetUserOrder();
 
-            Console.WriteLine("...выводим  porgram.cs");
-            query.GetAllDish();
+           //query.addAllDish();
+
+           // //query.addAllDish();
+           // Console.WriteLine("...выводим  porgram.cs");
+           // query.GetAllDishAll();
+
+           // Console.WriteLine("...выводим  porgram.cs");
+           // query.GetAllDish();
 
 
-
+           // query.Order();
             //query.AddIngredient(listIngr);
 
             //listIngr.Clear();

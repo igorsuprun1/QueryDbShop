@@ -14,5 +14,9 @@ namespace QueryDB_Shop.Model.Rest
 
         public int OrderId { get; set; }
         public Order Order { get; set; }
+
+        public int Quality { get; set; }
+
+        public DateTime ?DateTimeDishOrder { get; set; }
     }
 }

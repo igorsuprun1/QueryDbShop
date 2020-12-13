@@ -33,7 +33,7 @@ namespace QueryDB_Shop.Model.Rest
         public List<Ingredient_ef_5_0> Ingredients_ef_5_0 { get; set; } = new List<Ingredient_ef_5_0>();
         public List<DishIngredient_ef_5_0> DishIngredients_ef_5_0 { get; set; } = new List<DishIngredient_ef_5_0>();
 
-        public ICollection<DishOrder> DishOrders { get; set; }
+      //  public ICollection<DishOrder> DishOrders { get; set; }
 
 
 

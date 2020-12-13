@@ -16,7 +16,7 @@ namespace QueryDB_Shop.Model.Rest
         public int Weight { get; set; }
         public int Calories { get; set; }
         //остатки
-        public int Remain { get; set; }
+        public long Remain { get; set; }
         //забронировано
         public int Reserved { get; set; }
 
@@ -31,7 +31,7 @@ namespace QueryDB_Shop.Model.Rest
         // Многие ко многим ссылка на промежуточную таблицу
         public ICollection<DishIngredient> DishIngredients { get; set; } = new List<DishIngredient>();
 
-        public ICollection<DishOrder> DishOrders { get; set; }
+        public ICollection<DishOrder> DishOrders { get; set; } = new List<DishOrder>();
 
        
 
